@@ -48,6 +48,48 @@ function App() {
     }
   };
 
+  // const handleRun = async () => {
+  //   if (userList.length === 0) {
+  //     // No questions in the list, show error message
+  //     setErrorMessage("Please ask a question before running the request.");
+  //     setIsInputHighlighted(true);
+  //     return;
+  //   }
+
+  //   // Reset error state and clear the previous API response
+  //   setErrorMessage("");
+  //   setIsInputHighlighted(false);
+  //   setApiResponse(null);
+
+  //   // Set loading state to true
+  //   setIsLoading(true);
+
+  //   // TODO: Get the latest question to send to the API
+  //   //const latestQuestion = userList[0];
+
+  //   // Simulate a REST API call (mocking with a local JSON response)
+  //   fetch(`${apiUrl}/src/dummy-response.json`) // Replace with actual API endpoint later
+  //     .then((response) => {
+  //       if (!response.ok) {
+  //         throw new Error(`HTTP error! status: ${response.status}`);
+  //       }
+  //       return response.json() as Promise<ApiResponse>; // Attempt to parse the JSON
+  //     })
+  //     // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  //     .then((data: { message: string }) => {
+  //       // Assuming the API response contains a "message" key
+  //       setApiResponse(data?.message || "No response from API");
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error fetching API:", error);
+  //       setApiResponse("Error fetching the API.");
+  //     })
+  //     .finally(() => {
+  //       // Reset loading state
+  //       setIsLoading(false);
+  //     });
+  // };
+
   const handleRun = async () => {
     if (userList.length === 0) {
       // No questions in the list, show error message
@@ -64,30 +106,21 @@ function App() {
     // Set loading state to true
     setIsLoading(true);
 
-    // TODO: Get the latest question to send to the API
-    //const latestQuestion = userList[0];
-
     // Simulate a REST API call (mocking with a local JSON response)
-    fetch(`${apiUrl}/src/dummy-response.json`) // Replace with actual API endpoint later
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        return response.json() as Promise<ApiResponse>; // Attempt to parse the JSON
-      })
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      .then((data: { message: string }) => {
-        // Assuming the API response contains a "message" key
-        setApiResponse(data?.message || "No response from API");
-      })
-      .catch((error) => {
-        console.error("Error fetching API:", error);
-        setApiResponse("Error fetching the API.");
-      })
-      .finally(() => {
-        // Reset loading state
-        setIsLoading(false);
-      });
+    try {
+      const response = await fetch(`${apiUrl}/src/dummy-response.json`);
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const data = (await response.json()) as ApiResponse;
+      setApiResponse(data?.message || "No response from API");
+    } catch (error) {
+      console.error("Error fetching API:", error);
+      setApiResponse("Error fetching the API.");
+    } finally {
+      // Reset loading state
+      setIsLoading(false);
+    }
   };
 
   return (
