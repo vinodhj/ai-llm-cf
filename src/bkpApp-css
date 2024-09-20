@@ -50,7 +50,6 @@ body {
   display: flex;
   align-items: center;
   padding: 15px 20px;
-  flex-wrap: wrap; /* Allow buttons to wrap */
 }
 
 .run-message {
@@ -74,6 +73,10 @@ body {
 
 .run-button:hover {
   background-color: #d4004e;
+}
+
+.run-icon {
+  margin-left: 10px;
 }
 
 h2 {
@@ -123,6 +126,16 @@ textarea {
   margin-bottom: 20px;
 }
 
+.message-box input[type="text"] {
+  flex-grow: 1;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ced4da;
+  box-sizing: border-box;
+  font-size: 1rem;
+  margin-right: 10px;
+}
+
 .message-box button {
   padding: 10px;
   border-radius: 6px;
@@ -141,8 +154,9 @@ textarea {
 /* User list */
 .user-list {
   width: 100%;
+  max-width: 100%; /* Prevent it from exceeding the container */
   margin-top: 20px;
-  padding: 10px;
+  padding: 10px; /* Optional: add some padding */
   overflow: auto; /* Enable scrolling if content exceeds height */
 }
 
@@ -150,25 +164,27 @@ textarea {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 15px 20px;
+  padding: 15px 20px; /* Padding for individual items */
   margin-bottom: 10px;
-  border-radius: 6px;
-  border-left: 5px solid #007bff;
-  transition: transform 0.3s;
-  word-wrap: break-word;
-  flex-wrap: wrap;
-  max-width: 100%;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  border-radius: 6px; /* Rounded corners */
+  border-left: 5px solid #007bff; /* Left border for a pop of color */
+  transition: transform 0.3s; /* Transition effects */
+  word-wrap: break-word; /* Allow long words to break onto the next line */
+  flex-wrap: wrap; /* Ensure items wrap within the container */
+  max-width: 100%; /* Prevent stretching */
+  overflow: hidden; /* Hide overflow */
+  text-overflow: ellipsis; /* Add ellipsis for overflowing text */
 }
 
 .user-item span {
-  font-weight: 600;
-  color: #333;
-  font-size: 1.1rem;
-  flex-grow: 1;
-  overflow-wrap: break-word;
+  font-weight: 600; /* Bolder text for emphasis */
+  color: #333; /* Dark text for readability */
+  font-size: 1.1rem; /* Slightly larger font size */
+  flex-grow: 1; /* Allow span to take available space */
+  overflow-wrap: break-word; /* Ensure long words wrap */
 }
+
+
 
 /* Highlight and error handling */
 .message-box {
@@ -178,7 +194,7 @@ textarea {
 }
 
 .message-box.highlight input {
-  border: 2px solid red;
+  border: 2px solid red; /* Highlight the input box with a red border */
 }
 
 .error-message {
@@ -187,6 +203,24 @@ textarea {
   font-size: 0.9em;
 }
 
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .app-container {
+    padding: 20px;
+    height: auto; /* Adjust height for smaller screens */
+  }
+
+  h2 {
+    font-size: 1.5rem;
+  }
+
+  .run-button {
+    padding: 12px;
+    font-size: 0.9rem;
+  }
+}
+
+/* Add this to your App.css or your main CSS file */
 .api-response {
   margin-top: 20px;
   padding: 15px;
@@ -198,10 +232,25 @@ textarea {
   color: #333;
 }
 
+div.api-response h3 {
+  margin-bottom: 10px;
+  color: #555;
+  font-size: 1.2em;
+}
+
 div.api-response p {
   font-size: 1em;
   line-height: 1.6;
   text-align: left;
+}
+
+textarea {
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ced4da;
+  box-sizing: border-box;
+  font-size: 1rem;
+  margin-right: 10px; /* Ensure space between textarea and button */
 }
 
 /* New distinct style for the Clear button */
@@ -226,62 +275,4 @@ div.api-response p {
   color: #cccccc;
   cursor: not-allowed;
   background-color: transparent;
-}
-
-/* Mobile responsiveness */
-@media (max-width: 768px) {
-  .app-container {
-    padding: 20px;
-    height: auto;
-  }
-
-  h2 {
-    font-size: 1.5rem;
-  }
-
-  .run-button-container {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
-  }
-
-  .run-button,
-  .clear-button {
-    width: 100%;
-    padding: 12px;
-    font-size: 0.9rem;
-  }
-
-  .user-item {
-    padding: 10px;
-    font-size: 0.9rem;
-    border-left-width: 4px;
-  }
-
-  .run-message {
-    margin-bottom: 10px;
-    font-size: 0.8rem;
-  }
-
-  .api-response {
-    font-size: 0.9rem;
-    padding: 10px;
-  }
-
-  textarea {
-    padding: 8px;
-  }
-
-  .message-box button {
-    padding: 8px 12px;
-    font-size: 0.9rem;
-  }
-
-  label {
-    font-size: 0.9rem;
-  }
-
-  .message-box textarea {
-    font-size: 0.9rem;
-  }
 }
