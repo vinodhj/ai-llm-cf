@@ -1,0 +1,42 @@
+.api-response-container {
+    margin-top: 20px;
+    padding: 10px;
+    border-radius: 8px;
+    background-color: #f4f4f9;
+    border: 1px solid #dcdcdc;
+    font-family: Arial, sans-serif;
+    max-width: 700px;
+    word-wrap: break-word;
+  }
+  
+  .api-response p {
+    margin: 0;
+    padding: 0;
+    color: #333;
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+  
+  .api-response p::first-letter {
+    font-size: 1.2rem; /* Optional styling to enlarge the first letter */
+    font-weight: bold;
+  }
+  
+  .api-response {
+    white-space: pre-wrap; /* Keeps spacing and line breaks intact */
+    text-align: justify;   /* Aligns text for a nice clean block layout */
+  }
+  
+  .api-response code {
+    background-color: #f1f1f1;
+    padding: 2px 4px;
+    border-radius: 4px;
+    font-family: Consolas, 'Courier New', monospace;
+    color: #d63384; /* Highlight code snippets if they exist in the response */
+  }
+  
+  .api-response strong {
+    font-weight: bold;
+    color: #d63384; /* Style for strong elements (bold) */
+  }
+  
