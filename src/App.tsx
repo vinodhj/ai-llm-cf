@@ -85,7 +85,8 @@ function App() {
   return (
     <div className="app-container">
       <div className="left-panel">
-        <h2>Workers AI LLM Playground ✨</h2>
+        <h2>Dizzy AI LLM Playground ✨</h2>
+        <p>Hi, how can I help?</p>
         <p>
           Explore different Text Generation models by drafting messages and
           fine-tuning your responses.
@@ -108,7 +109,7 @@ function App() {
             rows={3} // Adjust the number of visible rows as needed
             style={{ resize: "none", width: "100%" }} // Prevent resizing
           />
-          <button onClick={handleAddMessage}>Ask</button>
+          <button onClick={handleAddMessage} className="ask-button">Ask</button>
         </div>
 
         {errorMessage && <div className="error-message">{errorMessage}</div>}
