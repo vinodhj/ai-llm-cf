@@ -2,10 +2,15 @@ import React, { useState } from "react";
 import "./App.css";
 import Footer from "./Footer"; // Adjust the path as necessary
 
+const apiUrl = import.meta.env.DEV
+  ? "http://localhost:5175"
+  : "https://ai-llm-cf.pages.dev";
+
+console.log("apiUrl", apiUrl);
+
 interface ApiResponse {
   message: string;
 }
-
 
 function App() {
   const [userMessage, setUserMessage] = useState("");
@@ -63,7 +68,7 @@ function App() {
     //const latestQuestion = userList[0];
 
     // Simulate a REST API call (mocking with a local JSON response)
-    fetch("src/dummy-response.json") // Replace with actual API endpoint later
+    fetch(`${apiUrl}/src/dummy-response.json`) // Replace with actual API endpoint later
       .then((response) => {
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
