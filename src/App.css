@@ -252,3 +252,27 @@ textarea {
   font-size: 1rem;
   margin-right: 10px; /* Ensure space between textarea and button */
 }
+
+/* New distinct style for the Clear button */
+.clear-button {
+  background-color: transparent;
+  color: #ff3b3b;
+  border: 2px solid #ff3b3b;
+  padding: 8px 18px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-radius: 8px;
+}
+
+.clear-button:hover {
+  background-color: #ff3b3b;
+  color: white;
+}
+
+.clear-button:disabled {
+  border-color: #cccccc;
+  color: #cccccc;
+  cursor: not-allowed;
+  background-color: transparent;
+}

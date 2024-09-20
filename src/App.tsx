@@ -31,13 +31,6 @@ function App() {
     }
   };
 
-  // const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   setUserMessage(e.target.value);
-  //   if (e.target.value.trim() !== '') {
-  //     setErrorMessage('');
-  //     setIsInputHighlighted(false);
-  //   }
-  // };
   const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setUserMessage(e.target.value);
     if (e.target.value.trim() !== "") {
@@ -48,7 +41,6 @@ function App() {
 
   const handleRun = async () => {
     if (userList.length === 0) {
-      // No questions in the list, show error message
       setErrorMessage("Please ask a question before running the request.");
       setIsInputHighlighted(true);
       return;
@@ -62,7 +54,6 @@ function App() {
     // Set loading state to true
     setIsLoading(true);
 
-    // Simulate a REST API call (mocking with a local JSON response)
     try {
       const response = await fetch(`${apiUrl}/`, {
         method: "POST",
@@ -77,9 +68,18 @@ function App() {
       console.error("Error fetching API:", error);
       setApiResponse("Error fetching the API.");
     } finally {
-      // Reset loading state
       setIsLoading(false);
     }
+  };
+
+  // Function to clear all states
+  const handleClear = () => {
+    setUserMessage("");        // Clear user input
+    setUserList([]);           // Clear user list
+    setErrorMessage("");       // Clear error messages
+    setApiResponse(null);      // Clear API response
+    setIsInputHighlighted(false); // Reset input highlighting
+    setIsLoading(false);       // Reset loading state
   };
 
   return (
@@ -125,26 +125,31 @@ function App() {
       {/* API Response */}
       {apiResponse && (
         <div className="api-response">
-          {/* <h4>Response from API:</h4> */}
           <p>{apiResponse}</p>
         </div>
       )}
 
-      {/* Run Button at the bottom */}
+      {/* Run and Clear Buttons */}
       <div className="sticky run-button-container">
         <div className="run-message">
-          Send messages and generate a response (⌘/Ctrl + Enter)
+          Send messages and generate a response
         </div>
-        <button className="run-button" onClick={handleRun}>
+
+         {/* Add Clear button */}
+         <button className="clear-button" onClick={handleClear} disabled={isLoading}>
+          Clear
+        </button> &nbsp;&nbsp;
+
+        <button className="run-button" onClick={handleRun} disabled={isLoading}>
           {isLoading ? "Running..." : "Run ✨"}
         </button>
       </div>
+
       {/* Copyright Footer */}
-      <div>
-        <Footer />
-      </div>
+      <Footer />
     </div>
   );
 }
+
 
 export default App;
