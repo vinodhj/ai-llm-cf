@@ -1,39 +1,33 @@
-import React, { useState } from "react";
-import "./App.css";
-import Footer from "./Footer"; // Adjust the path as necessary
+import { useState } from "react";
+import "./assets/css/App.css";
+import Footer from "./components/Footer"; // Adjust the path as necessary
+import MessageInput from "./components/MessageInput";
+import UserList from "./components/UserList";
+import ApiResponse from "./components/ApiResponse";
 
 const apiUrl = import.meta.env.DEV
   ? "http://localhost:8790"
   : "https://cf-llama-3.vinodh-jeevanantham.workers.dev";
 
-interface ApiResponse {
+interface ApiResponseData {
   response: string;
 }
 
-function App() {
+const App = () => {
   const [userMessage, setUserMessage] = useState("");
   const [userList, setUserList] = useState<string[]>([]);
   const [errorMessage, setErrorMessage] = useState("");
   const [isInputHighlighted, setIsInputHighlighted] = useState(false);
-  const [apiResponse, setApiResponse] = useState<string | null>(null); // State to store API response
-  const [isLoading, setIsLoading] = useState(false); // State to manage loading
+  const [apiResponse, setApiResponse] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleAddMessage = () => {
     if (userMessage.trim() === "") {
       setErrorMessage("Message cannot be empty, Ask AI Anything");
       setIsInputHighlighted(true);
     } else {
-      // Clear previous question and add the current one
       setUserList([userMessage]);
       setUserMessage("");
-      setErrorMessage("");
-      setIsInputHighlighted(false);
-    }
-  };
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setUserMessage(e.target.value);
-    if (e.target.value.trim() !== "") {
       setErrorMessage("");
       setIsInputHighlighted(false);
     }
@@ -46,12 +40,9 @@ function App() {
       return;
     }
 
-    // Reset error state and clear the previous API response
     setErrorMessage("");
     setIsInputHighlighted(false);
     setApiResponse(null);
-
-    // Set loading state to true
     setIsLoading(true);
 
     try {
@@ -59,10 +50,8 @@ function App() {
         method: "POST",
         body: JSON.stringify({ prompt: userList[0] }),
       });
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      const data = (await response.json()) as ApiResponse;
+      if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+      const data = (await response.json()) as ApiResponseData;
       setApiResponse(data?.response || "No response from API");
     } catch (error) {
       console.error("Error fetching API:", error);
@@ -72,14 +61,13 @@ function App() {
     }
   };
 
-  // Function to clear all states
   const handleClear = () => {
-    setUserMessage("");        // Clear user input
-    setUserList([]);           // Clear user list
-    setErrorMessage("");       // Clear error messages
-    setApiResponse(null);      // Clear API response
-    setIsInputHighlighted(false); // Reset input highlighting
-    setIsLoading(false);       // Reset loading state
+    setUserMessage("");
+    setUserList([]);
+    setErrorMessage("");
+    setApiResponse(null);
+    setIsInputHighlighted(false);
+    setIsLoading(false);
   };
 
   return (
@@ -100,44 +88,29 @@ function App() {
             </option>
           </select>
         </div>
+        
 
-        <div className={`message-box ${isInputHighlighted ? "highlight" : ""}`}>
-          <textarea
-            value={userMessage}
-            onChange={handleInputChange}
-            placeholder="Ask AI LLM Anything..."
-            rows={3} // Adjust the number of visible rows as needed
-            style={{ resize: "none", width: "100%" }} // Prevent resizing
-          />
-          <button onClick={handleAddMessage} className="ask-button">Ask</button>
-        </div>
+        <MessageInput
+          userMessage={userMessage}
+          setUserMessage={setUserMessage}
+          handleAddMessage={handleAddMessage}
+          isInputHighlighted={isInputHighlighted}
+        />
 
         {errorMessage && <div className="error-message">{errorMessage}</div>}
 
-        <div className="user-list">
-          {userList.map((message, index) => (
-            <div key={index} className="user-item">
-              <span>{message}</span>
-            </div>
-          ))}
-        </div>
+        <UserList userList={userList} />
+
       </div>
 
-      {/* API Response */}
-      {apiResponse && (
-        <div className="api-response">
-          <p>{apiResponse}</p>
-        </div>
-      )}
+      <ApiResponse apiResponse={apiResponse} />
 
-      {/* Run and Clear Buttons */}
       <div className="sticky run-button-container">
         <div className="run-message">
           Send messages and generate a response
         </div>
 
-         {/* Add Clear button */}
-         <button className="clear-button" onClick={handleClear} disabled={isLoading}>
+        <button className="clear-button" onClick={handleClear} disabled={isLoading}>
           Clear
         </button> &nbsp;&nbsp;
 
@@ -146,11 +119,9 @@ function App() {
         </button>
       </div>
 
-      {/* Copyright Footer */}
       <Footer />
     </div>
   );
 }
-
 
 export default App;
