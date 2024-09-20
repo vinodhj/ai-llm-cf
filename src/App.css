@@ -60,7 +60,7 @@ body {
 }
 
 .run-button {
-  display: flex;
+  display: inline-grid;
   align-items: center;
   padding: 10px 20px;
   border-radius: 8px;
