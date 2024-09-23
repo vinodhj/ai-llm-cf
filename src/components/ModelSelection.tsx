@@ -47,7 +47,8 @@ const ModelSelection: React.FC<ModelSelectionProps> = ({ onModelChange }) => {
         // Check if the default model exists in the fetched data
         const defaultModel = data.models.find((model) => model.id === defaultModelId);
         if (defaultModel) {
-          setSelectedModel(defaultModel.name); // Set the default model's name
+          const [model_name ] = [...defaultModel.name.split("/")].reverse();
+          setSelectedModel(model_name); // Set the default model's name
           onModelChange(defaultModel.name); // Pass the default model name to the parent
         }
       } catch (error) {
@@ -64,7 +65,8 @@ const ModelSelection: React.FC<ModelSelectionProps> = ({ onModelChange }) => {
   };
 
   const handleSelect = (model: Model) => {
-    setSelectedModel(model.name);
+    const [model_name] = [...model.name.split("/")].reverse();
+    setSelectedModel(model_name);
     onModelChange(model.name);
     setIsOpen(false);
   };
@@ -101,7 +103,9 @@ const ModelSelection: React.FC<ModelSelectionProps> = ({ onModelChange }) => {
           <span className="custom-select-arrow">▲</span>
           <div className={`custom-select-dropdown ${isOpen ? "open" : ""}`}>
             {models.length > 0 ? (
-              models.map((model) => (
+              models.map((model) => {
+                const [model_name ] = [...model.name.split("/")].reverse();
+                return (
                 <div
                   key={model.id}
                   className={`custom-select-option ${
@@ -109,10 +113,11 @@ const ModelSelection: React.FC<ModelSelectionProps> = ({ onModelChange }) => {
                   }`}
                   onClick={() => handleSelect(model)}
                 >
-                  <span>{model.name}</span>
+                  <span>{model_name}</span>
                   <span className="label">Beta</span> 
                 </div>
-              ))
+              )}
+            )
             ) : (
               <div className="custom-select-option">Loading models...</div>
             )}
