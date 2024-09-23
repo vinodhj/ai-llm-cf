@@ -4,14 +4,18 @@ import Footer from "./components/Footer"; // Adjust the path as necessary
 import MessageInput from "./components/MessageInput";
 import UserList from "./components/UserList";
 import ApiResponse from "./components/ApiResponse";
+import ModelSelection from "./components/ModelSelection";
 
 const apiUrl = import.meta.env.DEV
   ? "http://localhost:8790"
   : "https://cf-llama-3.vinodh-jeevanantham.workers.dev";
 
+const is_dev = import.meta.env.DEV ? true : false;
+
 interface ApiResponseData {
   response: string;
 }
+
 
 const App = () => {
   const [userMessage, setUserMessage] = useState("");
@@ -50,6 +54,7 @@ const App = () => {
         method: "POST",
         body: JSON.stringify({ prompt: userList[0] }),
       });
+      
       if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
       const data = (await response.json()) as ApiResponseData;
       setApiResponse(data?.response || "No response from API");
@@ -80,15 +85,31 @@ const App = () => {
           fine-tuning your responses.
         </p>
 
-        <div className="model-selection">
+        {/* <div className="model-selection">
           <label>Model</label>
           <select>
             <option value="llama-3.1-8b-instruct">
               llama-3.1-8b-instruct (Beta)
             </option>
           </select>
-        </div>
+        </div> */}
+
+        {/* Model Selection Component */}
+         {/* <ModelSelection /> */}
         
+        {/* Conditionally render model selection based on is_dev */}
+        {is_dev ? (
+          <div className="model-selection">
+            <label>Model</label>
+            <select>
+              <option value="llama-3.1-8b-instruct">
+                llama-3.1-8b-instruct (Beta)
+              </option>
+            </select>
+          </div>
+        ) : (
+          <ModelSelection />
+        )}
 
         <MessageInput
           userMessage={userMessage}
