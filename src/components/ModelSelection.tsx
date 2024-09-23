@@ -15,9 +15,14 @@ interface Model {
   description: string;
 }
 
+interface ModelSelectionProps {
+  onModelChange: (modelId: string) => void;  // Callback to pass the selected model ID
+}
+
 const defaultModelId = "41975cc2-c82e-4e98-b7b8-88ffb186a545";
 
-const ModelSelection: React.FC = () => {
+
+const ModelSelection: React.FC<ModelSelectionProps> = ({ onModelChange }) => {
   const [models, setModels] = useState<Model[]>([]);
   const [selectedModel, setSelectedModel] = useState<string>(defaultModelId); // default value
   const [error, setError] = useState<string | null>(null);
@@ -40,6 +45,7 @@ const ModelSelection: React.FC = () => {
         const defaultModel = data.models.find((model) => model.id === defaultModelId);
         if (defaultModel) {
           setSelectedModel(defaultModel.name); // Set the default model's name
+          onModelChange(defaultModel.name); // Pass the default model name to the parent
         }
 
       } catch (error) {
@@ -53,6 +59,7 @@ const ModelSelection: React.FC = () => {
 
   const handleModelChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedModel(e.target.value);
+    onModelChange(e.target.value);
   };
 
   return (

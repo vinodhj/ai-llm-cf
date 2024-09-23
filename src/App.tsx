@@ -22,6 +22,8 @@ const App = () => {
   const [isInputHighlighted, setIsInputHighlighted] = useState(false);
   const [apiResponse, setApiResponse] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [selectedModel, setSelectedModel] = useState<string>(""); // State for the selected model
+
 
   const handleAddMessage = () => {
     if (userMessage.trim() === "") {
@@ -50,7 +52,7 @@ const App = () => {
     try {
       const response = await fetch(`${apiUrl}/`, {
         method: "POST",
-        body: JSON.stringify({ prompt: userList[0] }),
+        body: JSON.stringify({ prompt: userList[0], model: selectedModel }),
       });
       
       if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
@@ -92,7 +94,7 @@ const App = () => {
           </select>
         </div> */}
 
-        <ModelSelection />
+        <ModelSelection onModelChange={setSelectedModel}/>
 
         <MessageInput
           userMessage={userMessage}
