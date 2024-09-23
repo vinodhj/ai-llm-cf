@@ -1,9 +1,15 @@
 import React, { useEffect, useState } from "react";
 import axios from 'axios';
 
+const headersList = {
+  "Accept": "*/*",
+  "content-type" : "application/json",
+  "cache-control" : "no-cache",
+ }
+
 const apiClient = axios.create({
     baseURL: 'https://playground.ai.cloudflare.com/api',
-    withCredentials: true,
+    //baseURL: '/api', // This now refers to your Vite proxy URL
   });
 
 interface Model {
@@ -19,7 +25,10 @@ const ModelSelection: React.FC = () => {
   useEffect(() => {
     const fetchModels = async () => {
       try {
-        const { data } = await apiClient.get<Model[]>('/models');
+        const { data } = await apiClient.get<Model[]>('/models' , {
+          headers: headersList
+        });
+        console.log(data); 
         setModels(data);
         // const response = await fetch("https://playground.ai.cloudflare.com/api/models", {
         //   method: "GET",
@@ -36,6 +45,7 @@ const ModelSelection: React.FC = () => {
         // const data = (await response.json()) as Model[];
         // setModels(data);
       } catch (error) {
+        console.error('Error fetching models:', error);
         setError("Failed to fetch models. Please try again later.");
       }
     };
