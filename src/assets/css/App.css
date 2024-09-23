@@ -88,10 +88,10 @@ p {
   text-align: center;
 }
 
-.model-selection {
+/* .model-selection {
   margin-bottom: 20px;
   width: 100%;
-}
+} */
 
 label {
   display: block;
@@ -267,6 +267,7 @@ div.api-response p {
   box-shadow: none;
   color: #666;
 }
+
 
 
 /* Mobile responsiveness */
