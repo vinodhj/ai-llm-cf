@@ -17,14 +17,14 @@ interface Model_json {
 }
 
 interface ModelSelectionProps {
-  onModelChange: (modelId: string) => void; // Callback to pass the selected model ID
+  onModelChange: (modelName: string) => void; // Callback to pass the selected model ID
 }
 
 const defaultModelId = "41975cc2-c82e-4e98-b7b8-88ffb186a545";
 
 const ModelSelection: React.FC<ModelSelectionProps> = ({ onModelChange }) => {
   const [models, setModels] = useState<Model[]>([]);
-  const [selectedModel, setSelectedModel] = useState<string>(defaultModelId); // default value
+  const [selectedModel, setSelectedModel] = useState<string>(""); // default value
   const [isOpen, setIsOpen] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -99,7 +99,7 @@ const ModelSelection: React.FC<ModelSelectionProps> = ({ onModelChange }) => {
           className={`custom-select-container ${isOpen ? "open" : ""}`}
           onClick={toggleDropdown}
         >
-          <span>{selectedModel}</span>
+          <span>{selectedModel || "Loading models..."}</span>
           <span className="custom-select-arrow">▲</span>
           <div className={`custom-select-dropdown ${isOpen ? "open" : ""}`}>
             {models.length > 0 ? (
