@@ -4,13 +4,11 @@ import Footer from "./components/Footer"; // Adjust the path as necessary
 import MessageInput from "./components/MessageInput";
 import UserList from "./components/UserList";
 import ApiResponse from "./components/ApiResponse";
-// import ModelSelection from "./components/ModelSelection";
+import ModelSelection from "./components/ModelSelection";
 
 const apiUrl = import.meta.env.DEV
   ? "http://localhost:8790"
   : "https://cf-llama-3.vinodh-jeevanantham.workers.dev";
-
-// const is_dev = import.meta.env.DEV ? true : false;
 
 interface ApiResponseData {
   response: string;
@@ -85,28 +83,16 @@ const App = () => {
           fine-tuning your responses.
         </p>
 
-        <div className="model-selection">
+        {/* <div className="model-selection">
           <label>Model</label>
           <select>
             <option value="llama-3.1-8b-instruct">
               llama-3.1-8b-instruct (Beta)
             </option>
           </select>
-        </div>
+        </div> */}
 
-        {/* Conditionally render model selection based on is_dev */}
-        {/* {is_dev ? (
-          <div className="model-selection">
-            <label>Model</label>
-            <select>
-              <option value="llama-3.1-8b-instruct">
-                llama-3.1-8b-instruct (Beta)
-              </option>
-            </select>
-          </div>
-        ) : (
-          <ModelSelection />
-        )} */}
+        <ModelSelection />
 
         <MessageInput
           userMessage={userMessage}
