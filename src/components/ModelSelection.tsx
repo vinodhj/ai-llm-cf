@@ -2,8 +2,10 @@ import React, { useEffect, useState, useRef } from "react";
 import "../assets/css/ModelSelection.css";
 
 const apiUrl = import.meta.env.DEV
-  ? "http://localhost:8790"
-  : "https://cf-llama-3.vinodh-jeevanantham.workers.dev";
+  ? import.meta.env.VITE_DEV_API_URL
+  : import.meta.env.VITE_PROD_API_URL;
+
+console.log(import.meta.env.VITE_DEV_API_URL, import.meta.env.VITE_PROD_API_URL);
 
 interface Model {
   id: string;
