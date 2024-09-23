@@ -109,7 +109,7 @@ const ModelSelection: React.FC<ModelSelectionProps> = ({ onModelChange }) => {
                 <div
                   key={model.id}
                   className={`custom-select-option ${
-                    model.name === selectedModel ? "selected" : ""
+                    model_name === selectedModel ? "selected" : ""
                   }`}
                   onClick={() => handleSelect(model)}
                 >
