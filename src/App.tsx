@@ -26,6 +26,7 @@ const App = () => {
   const [apiResponse, setApiResponse] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [selectedModel, setSelectedModel] = useState<string>(""); // State for the selected model
+  const [turnstileToken, setTurnstileToken] = useState<string>(""); 
 
 
   useEffect(() => {
@@ -41,6 +42,7 @@ const App = () => {
           theme: 'light',
           callback: (token: string) => {
             console.log('Turnstile token:', token);
+            setTurnstileToken(token);
           },
         });
       } else {
@@ -91,7 +93,7 @@ const App = () => {
     try {
       const response = await fetch(`${apiUrl}/`, {
         method: "POST",
-        body: JSON.stringify({ prompt: userList[0], model: selectedModel }),
+        body: JSON.stringify({ prompt: userList[0], model: selectedModel, token: turnstileToken }),
       });
       
       if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
