@@ -268,7 +268,10 @@ div.api-response p {
   color: #666;
 }
 
-
+/* .checkbox {
+  display: flex;
+  justify-content: flex-end;
+} */
 
 /* Mobile responsiveness */
 @media (max-width: 768px) {
