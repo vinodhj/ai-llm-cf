@@ -85,6 +85,11 @@ const App = () => {
       return;
     }
 
+    if (turnstileToken === "") {
+      setErrorMessage("Turnstile token is required");
+      return;
+    }
+
     setErrorMessage("");
     setIsInputHighlighted(false);
     setApiResponse(null);
