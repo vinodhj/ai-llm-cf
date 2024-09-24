@@ -101,7 +101,7 @@ const App = () => {
       setApiResponse(data?.response || "No response from API");
     } catch (error) {
       console.error("Error fetching API:", error);
-      setApiResponse("Error fetching the API.");
+      setApiResponse(`Error fetching the API : ${error}`);
     } finally {
       setIsLoading(false);
     }
