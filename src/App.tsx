@@ -43,6 +43,7 @@ const App = () => {
           callback: (token: string) => {
             console.log('Turnstile token:', token);
             setTurnstileToken(token);
+            setIsCaptchaHighlighted(false);
           },
         });
       } else {
