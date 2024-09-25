@@ -177,7 +177,7 @@ textarea {
   gap: 10px;
 }
 
-.message-box.highlight input {
+.message-box.highlight textarea {
   border: 2px solid red;
 }
 
@@ -268,10 +268,9 @@ div.api-response p {
   color: #666;
 }
 
-/* .checkbox {
-  display: flex;
-  justify-content: flex-end;
-} */
+.turnstile-widget.highlight {
+  border: 2px solid red;
+}
 
 /* Mobile responsiveness */
 @media (max-width: 768px) {

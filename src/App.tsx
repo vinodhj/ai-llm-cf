@@ -27,7 +27,7 @@ const App = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [selectedModel, setSelectedModel] = useState<string>(""); // State for the selected model
   const [turnstileToken, setTurnstileToken] = useState<string>(""); 
-
+  const [isCaptchaHighlighted, setIsCaptchaHighlighted] = useState(false);
 
   useEffect(() => {
     // Ensure that the turnstile script is available and only render once
@@ -86,12 +86,14 @@ const App = () => {
     }
 
     if (turnstileToken === "") {
-      setErrorMessage("Turnstile token is required");
+      setErrorMessage("Please check the CAPTCHA box");
+      setIsCaptchaHighlighted(true);
       return;
     }
 
     setErrorMessage("");
     setIsInputHighlighted(false);
+    setIsCaptchaHighlighted(false);
     setApiResponse(null);
     setIsLoading(true);
 
@@ -159,7 +161,7 @@ const App = () => {
 
       <div className="sticky run-button-container">
       <div className="checkbox mb-3">
-        <div id="myWidget"></div>
+        <div id="myWidget" className={`turnstile-widget ${isCaptchaHighlighted ? "highlight" : ""}`}></div>
         <div className="run-message">
           Send messages and generate a response
         </div>
