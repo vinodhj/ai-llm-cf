@@ -44,6 +44,7 @@ const App = () => {
             console.log('Turnstile token:', token);
             setTurnstileToken(token);
             setIsCaptchaHighlighted(false);
+            setErrorMessage("");
           },
         });
       } else {
