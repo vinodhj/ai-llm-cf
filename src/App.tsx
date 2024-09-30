@@ -62,6 +62,7 @@ const App = () => {
     setIsCaptchaHighlighted(false);
     setApiResponse(null);
     setIsLoading(true);
+    setTurnstileToken("");
 
     try {
       const response = await fetch(`${apiUrl}/`, {
